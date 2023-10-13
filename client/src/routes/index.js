@@ -1,10 +1,4 @@
-import {
-  Route,
-  Routes,
-  Navigate,
-  BrowserRouter as Router,
-} from "react-router-dom";
-import Home from "../pages/home/Home";
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Signin from "../pages/signin/Signin";
 import { useEffect } from "react";
 import Signup from "../pages/signup/Signup";
