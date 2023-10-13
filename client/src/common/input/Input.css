@@ -1,0 +1,35 @@
+.Input {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  width: auto;
+  border: 1px solid blue;
+}
+
+.InputTitle {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  width: auto;
+  border: 1px solid red;
+}
+
+.InputTitle h3 {
+  text-align: left;
+  font-size: 1em;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.InputBox {
+  border: 1px solid green;
+  height: auto;
+  width: 100%;
+}
+
+.InputBox input {
+  border: 0;
+  height: 30px;
+  width: 100%;
+  box-shadow: 5px 5px blue;
+}
