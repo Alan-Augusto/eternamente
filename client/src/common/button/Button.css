@@ -1,0 +1,40 @@
+.Button {
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  gap: 8px;
+  border-radius: 8px;
+  background: #f20f99;
+}
+
+.Button p {
+  color: #ffffff;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.Button i {
+  display: flex;
+}
+
+.Button:hover {
+  animation: scale 1s;
+  cursor: pointer;
+}
+
+@keyframes scale {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}

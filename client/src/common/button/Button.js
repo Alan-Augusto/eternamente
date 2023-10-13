@@ -3,8 +3,8 @@ import "./Button.css";
 function Button({ title, onClick, icon }) {
   return (
     <div className="Button">
-      <button>{title}</button>
-      {icon && <img src={icon} alt="Ícone" />}
+      <p>{title}</p>
+      <i class={icon}></i>
     </div>
   );
 }
