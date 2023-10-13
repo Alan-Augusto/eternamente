@@ -2,6 +2,7 @@ import Button from "../../common/button/Button";
 import Input from "../../common/input/Input";
 import Logo from "../../common/logo/Logo";
 import React, { useState } from "react";
+import http from "../export.js";
 import "./Signup.css";
 
 function Signup() {
@@ -15,6 +16,13 @@ function Signup() {
     console.log("email = ", email);
     console.log("senha = ", password);
     console.log("data = ", date);
+
+    http.post("/signup", {
+      name: name,
+      email: email,
+      password: password,
+      birthday: date,
+    });
   }
 
   return (
@@ -57,10 +65,7 @@ function Signup() {
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
-          <Button 
-            title="finalizar cadastro" 
-            onClick={handleClick}
-          />
+          <Button title="finalizar cadastro" onClick={handleClick} />
         </div>
       </div>
     </div>
