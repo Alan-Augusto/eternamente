@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/home", (req, res) => {
   const id = req.query.id; // Obtém o valor do parâmetro de consulta 'id' da URL
 
-  const sqlSelect = "SELECT * FROM usuario WHERE usuarios_id = ?";
+  const sqlSelect = "SELECT * FROM usuario WHERE id = ?";
   console.log(sqlSelect);
 
   db.query(sqlSelect, [id], (err, result) => {

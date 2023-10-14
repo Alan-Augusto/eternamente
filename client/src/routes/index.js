@@ -4,17 +4,16 @@ import { useEffect } from "react";
 import Signup from "../pages/signup/Signup";
 import Home from "../pages/home/Home";
 
-export const RouterApp = ({ isAuthenticated, handleLoginSuccess }) => {
+export const RouterApp = ({ isAuthenticated, handleLoginSuccess, idUser }) => {
   useEffect(() => {
-    console.log("Atualizou o Routes");
-  }, [isAuthenticated]);
-
-  console.log("Router ->", isAuthenticated);
+    console.log("Atualizou o Routes | ID ->", idUser);
+  }, [isAuthenticated, idUser]);
+  
   return (
     <Router>
       <Routes>
         {isAuthenticated ? (
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home idUser={idUser} />} />
         ) : (
           <Route
             path="/"

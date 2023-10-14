@@ -1,4 +1,4 @@
-* {
+*{
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -6,7 +6,9 @@
 
 body {
   background-image: url("../public/assets/background.png");
+  background-size: cover;
   background-position: center;
+  background-attachment: fixed;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {

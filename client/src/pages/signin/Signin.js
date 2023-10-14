@@ -23,7 +23,7 @@ function Signin({ handleLoginSuccess }) {
         const user = response.data[0];
         if (user.email === email && user.password === password) {
           console.log("VÁLIDO");
-          handleLoginSuccess();
+          handleLoginSuccess(user.id);
         } else {
           alert("Credenciais inválidas");
         }

@@ -4,13 +4,16 @@ import "./App.css"
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [idUser, setIdUser] = useState("");
 
-  const handleLoginSuccess = () => {
+  const handleLoginSuccess = (id) => {
     setIsAuthenticated(true);
+    setIdUser(id)
   };
 
   useEffect(() => {
     console.log("Está autenticado? -> ", isAuthenticated);
+    console.log("id = ", idUser);
   }, [isAuthenticated]); // Adicione isAuthenticated como dependência
 
   const handleLogout = () => {
@@ -22,6 +25,7 @@ function App() {
       <RouterApp
         isAuthenticated={isAuthenticated}
         handleLoginSuccess={handleLoginSuccess}
+        idUser={idUser}
       />
     </div>
   );
