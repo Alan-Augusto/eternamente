@@ -7,11 +7,9 @@
   padding: 8px;
   gap: 8px;
   border-radius: 8px;
-  background: #f20f99;
 }
 
 .Button p {
-  color: #ffffff;
   text-align: center;
   font-family: Montserrat;
   font-size: 12px;

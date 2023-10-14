@@ -1,0 +1,12 @@
+.Main{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    margin: 16px;
+}
+
+.SideBar{
+    display: flex;
+    flex-direction: column;
+    gap:16px;
+}
