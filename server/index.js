@@ -47,6 +47,22 @@ app.post("/signup", (req, res) => {
   });
 });
 
+app.get("/signin", (req, res) => {
+  const email = req.query.email; // Obtém o valor do parâmetro de consulta 'id' da URL
+
+  const sqlSelect = "SELECT * FROM usuario WHERE email = ?";
+  console.log(sqlSelect);
+
+  db.query(sqlSelect, [email], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
+
 app.listen(3001, () => {
   console.log(`Servidor rodando na porta 3001`);
 });

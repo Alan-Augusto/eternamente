@@ -2,15 +2,35 @@ import Button from "../../common/button/Button";
 import Input from "../../common/input/Input";
 import Logo from "../../common/logo/Logo";
 import React, { useState } from "react";
+import http from "../export";
 import "./Signin.css";
 
-function Signin() {
+function Signin({ handleLoginSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [credenciais, setCredenciais] = useState("");
 
   function handleClick() {
-    console.log("email = ", email);
-    console.log("senha = ", password);
+    console.log("Verificando credenciais...");
+    console.log(email);
+    console.log(password);
+
+    http.get(`/signin/?email=${email}`).then((response) => {
+      setCredenciais(response.data);
+
+      if (response.data && response.data.length > 0) {
+        // Verifique se há dados retornados e se o email e password correspondem
+        const user = response.data[0];
+        if (user.email === email && user.password === password) {
+          console.log("VÁLIDO");
+          handleLoginSuccess();
+        } else {
+          alert("Credenciais inválidas");
+        }
+      } else {
+        alert("Usuário não encontrado");
+      }
+    });
   }
 
   return (
@@ -32,8 +52,8 @@ function Signin() {
           />
           <Input
             type="password"
-            title="senha"
-            placeholder="digite sua senha..."
+            title="password"
+            placeholder="digite sua password..."
             icon="fi fi-rr-key"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
