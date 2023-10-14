@@ -1,9 +1,10 @@
-import './Button.css';
+import "./Button.css";
 
-function Button() {
+function Button({ title, onClick, icon }) {
   return (
-    <div className="Button">
-      <p>Button</p>
+    <div className="Button" onClick={onClick}>
+      <p>{title}</p>
+      <i class={icon}></i>
     </div>
   );
 }

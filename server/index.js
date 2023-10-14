@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/home", (req, res) => {
   const id = req.query.id; // Obtém o valor do parâmetro de consulta 'id' da URL
 
-  const sqlSelect = "SELECT * FROM emprestimo WHERE usuarios_id = ?";
+  const sqlSelect = "SELECT * FROM usuario WHERE usuarios_id = ?";
   console.log(sqlSelect);
 
   db.query(sqlSelect, [id], (err, result) => {
@@ -31,13 +31,13 @@ app.get("/home", (req, res) => {
   });
 });
 
-app.get("/signin", (req, res) => {
-  const email = req.query.email; // Obtém o valor do parâmetro de consulta 'id' da URL
+app.post("/signup", (req, res) => {
+  const { email, password, name, birthday } = req.body;
 
-  const sqlSelect = "SELECT * FROM usuario WHERE email = ?";
-  console.log(sqlSelect);
+  const sqlInsert =
+    "INSERT INTO usuario (email, password, name, birthday) VALUES (?, ?, ?, ?)";
 
-  db.query(sqlSelect, [email], (err, result) => {
+  db.query(sqlInsert, [email, password, name, birthday], (err, result) => {
     if (err) {
       console.log(err);
       return res.status(500).json(err);
