@@ -25,7 +25,6 @@ function Home({ idUser }) {
         <Boards
           selectedBoard={selectedBoard}
           setSelectedBoard={setSelectedBoard}
-          onClick={setSelectedBoard}
         />
       </div>
     </div>

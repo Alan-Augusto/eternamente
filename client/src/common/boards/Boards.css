@@ -57,12 +57,35 @@
   animation: scale 1s;
 }
 
+.BoardItem{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px
+}
+
+.ItemButton{
+  width: 100%;
+}
+
+.BoardItem i {
+  color: #ffffff85;
+  cursor: pointer;
+  display: flex;
+}
+
+.BoardItem i:hover {
+  transition: 5ms;
+  color: #ffffff;
+  animation: scale 1s;
+}
+
 @keyframes scale {
   0%,
   100% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }

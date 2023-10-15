@@ -132,6 +132,21 @@ app.post("/newboard", (req, res) => {
   });
 });
 
+app.post("/detetboard", (req, res) => {
+  const { id } = req.body;
+
+  // Inserindo um novo quadro na tabela "board"
+  const sqlInsertBoard = "DELETE FROM board WHERE id = ?;";
+  db.query(sqlInsertBoard, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
+
 /*
 (----OBTENDO AS BOARDS DE UM USUÁRIO----)
 SELECT b.*
