@@ -1,14 +1,43 @@
-import "./Filters.css";
 import React, { useState, useEffect } from "react";
-import Button from "../button/Button";
+import "./Filters.css";
 
-function Filters({Filters}) {
+function Filters({idUser}) {
 
-    return (
+  const [colors, setcolors] = useState(['#ffffff', "#000000"]);
+  const [labels, setlabels] = useState(['Importantes', 'Urgentes', 'segundo plano']);
+
+  return (
     <div className="Filters">
       <h3>Filtros</h3>
-      <select></select>
 
+      <div className="Colors">
+        
+      <i class="fi fi-rr-palette"></i>
+        <p>a cor é:</p>
+
+        <select>
+          <option>todas as cores</option>
+          {colors.map((color, index) => (
+            <option key={index} value={color}>
+              {color}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="Labels">
+        <i class="fi fi-rr-label"></i>
+        <p>o rótulo é:</p>
+
+        <select>
+          <option>todos os rótulos</option>
+          {labels.map((label, index) => (
+            <option key={index} value={label}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 }

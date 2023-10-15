@@ -63,6 +63,48 @@ app.get("/signin", (req, res) => {
   });
 });
 
+app.get("/labels", (req, res) => {
+  const boardId = req.query.boardId;
+
+  const sqlSelectLabels = `
+    SELECT label.id, label.title, label.color
+    FROM label
+    INNER JOIN task_label ON label.id = task_label.label_id
+    INNER JOIN task ON task_label.task_id = task.id
+    INNER JOIN list ON task.list_id = list.id
+    WHERE list.board_id = ?
+  `;
+
+  db.query(sqlSelectLabels, [boardId], (err, labels) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    console.log(labels);
+    res.send(labels);
+  });
+});
+
+app.get("/taskColors", (req, res) => {
+  const boardId = req.query.boardId;
+
+  const sqlSelectColors = `
+    SELECT DISTINCT task.color
+    FROM task
+    INNER JOIN list ON task.list_id = list.id
+    WHERE list.board_id = ? AND task.color IS NOT NULL
+  `;
+
+  db.query(sqlSelectColors, [boardId], (err, colors) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    console.log(colors);
+    res.send(colors);
+  });
+});
+
 /*
 (----OBTENDO AS BOARDS DE UM USUÁRIO----)
 SELECT b.*

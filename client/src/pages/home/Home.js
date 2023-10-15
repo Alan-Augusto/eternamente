@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import http from "../export";
 import "./Home.css";
 import Boards from "../../common/boards/Boards";
-import Filters from "../../common/filters/FIlters";
+import Filters from "../../common/filters/Filters";
 
 function Home({ idUser }) {
   const [selectedBoard, setSelectedBoard] = useState("");
@@ -23,7 +23,9 @@ function Home({ idUser }) {
       <div className="Header"></div>
       <div className="Main">
         <div className="SideBar">
-          <Filters/>
+          <Filters
+            idUser={idUser}
+          />
           <Boards
             boards={boards}
             selectedBoard={selectedBoard}

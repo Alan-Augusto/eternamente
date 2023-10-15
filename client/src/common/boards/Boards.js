@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Button from "../button/Button";
 
 function Boards({boards, selectedBoard, onClick}) {
-
+    
     return (
     <div className="Boards">
         <h3>Quadros</h3>
