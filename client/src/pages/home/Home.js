@@ -6,17 +6,6 @@ import Filters from "../../common/filters/Filters";
 
 function Home({ idUser }) {
   const [selectedBoard, setSelectedBoard] = useState("");
-  const [boards, setBoards] = useState([]);
-
-  useEffect(() => {
-    http.get(`/home/?id=${idUser}`).then((response) => {
-      setBoards(response.data);
-
-      if (response.data.length > 0) {
-        setSelectedBoard(response.data[0].id);
-      }
-    });
-  }, [idUser]);
 
   return (
     <div className="Home">
@@ -27,15 +16,15 @@ function Home({ idUser }) {
             idUser={idUser}
           />
           <Boards
-            boards={boards}
             selectedBoard={selectedBoard}
-            onClick={setSelectedBoard}
+            setSelectedBoard={setSelectedBoard}
+            idUser={idUser}
           />
         </div>
 
         <Boards
-          boards={boards}
           selectedBoard={selectedBoard}
+          setSelectedBoard={setSelectedBoard}
           onClick={setSelectedBoard}
         />
       </div>

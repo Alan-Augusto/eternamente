@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/home", (req, res) => {
+app.get("/getboards", (req, res) => {
   const id = req.query.id; // Obtém o valor do parâmetro de consulta 'id' da URL
 
   const sqlSelect =
@@ -102,6 +102,33 @@ app.get("/taskColors", (req, res) => {
     }
     console.log(colors);
     res.send(colors);
+  });
+});
+
+app.post("/newboard", (req, res) => {
+  const { name, id } = req.body;
+
+  // Inserindo um novo quadro na tabela "board"
+  const sqlInsertBoard = "INSERT INTO board (title) VALUES (?)";
+  db.query(sqlInsertBoard, [name], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+
+    // Inserindo uma nova linha na tabela "usuario-board" vinculando o usuário ao quadro criado
+    const boardId = result.insertId; // Obtém o ID do quadro recém-inserido
+    const sqlInsertUserBoard =
+      "INSERT INTO usuario_board (usuario_id, board_id) VALUES (?, ?)";
+    db.query(sqlInsertUserBoard, [id, boardId], (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json(err);
+      }
+
+      console.log(result);
+      res.send(result);
+    });
   });
 });
 
