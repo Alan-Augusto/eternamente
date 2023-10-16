@@ -3,6 +3,7 @@ import http from "../export";
 import "./Home.css";
 import Boards from "../../common/boards/Boards";
 import Filters from "../../common/filters/Filters";
+import MainBoard from "../../common/mainboard/MainBoard";
 
 function Home({ idUser }) {
   const [selectedBoard, setSelectedBoard] = useState("");
@@ -10,7 +11,7 @@ function Home({ idUser }) {
   return (
     <div className="Home">
       <div className="Header"></div>
-      <div className="Main">
+      <div className="Body">
         <div className="SideBar">
           <Filters
             idUser={idUser}
@@ -21,11 +22,12 @@ function Home({ idUser }) {
             idUser={idUser}
           />
         </div>
-
-        <Boards
-          selectedBoard={selectedBoard}
-          setSelectedBoard={setSelectedBoard}
-        />
+        <div className="Main">
+          {/* CONJUNTO DE LISTAS*/}
+          <MainBoard
+            selectedBoard={selectedBoard}
+          />
+        </div>
       </div>
     </div>
   );

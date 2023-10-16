@@ -31,6 +31,23 @@ app.get("/getboards", (req, res) => {
   });
 });
 
+app.get("/getlists", (req, res) => {
+  const id = req.query.id; // Obtém o valor do parâmetro de consulta 'id' da URL
+
+  const sqlSelect = "SELECT id, name, color FROM list WHERE board_id = ?";
+
+  console.log(sqlSelect);
+
+  db.query(sqlSelect, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
+
 app.post("/signup", (req, res) => {
   const { email, password, name, birthday } = req.body;
 
@@ -148,11 +165,6 @@ app.post("/detetboard", (req, res) => {
 });
 
 /*
-(----OBTENDO AS BOARDS DE UM USUÁRIO----)
-SELECT b.*
-FROM usuario_board AS ub
-JOIN board AS b ON ub.board_id = b.id
-WHERE ub.usuario_id = YOUR_USER_ID;
 
 (----OBTENDO AS LISTAS DE UMA BOARD----)
 SELECT l.*, t.*
