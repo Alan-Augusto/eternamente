@@ -21,6 +21,7 @@ export const RouterApp = ({ isAuthenticated, handleLoginSuccess, idUser }) => {
           />
         )}
         <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </Router>
   );

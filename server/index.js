@@ -164,6 +164,22 @@ app.post("/detetboard", (req, res) => {
   });
 });
 
+app.post("/newlist", (req, res) => {
+  const { name, id } = req.body;
+
+  // Inserindo um novo quadro na tabela "board"
+  const sqlInsertBoard =
+    "INSERT INTO list (name, board_id, color) VALUES (?, ?)";
+  db.query(sqlInsertBoard, [name, id], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
+
 /*
 
 (----OBTENDO AS LISTAS DE UMA BOARD----)
