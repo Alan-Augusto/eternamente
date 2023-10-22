@@ -95,6 +95,8 @@ function MainBoard({ selectedBoard }) {
         id: idList,
       });
       setEditPopUp(false);
+      setNewListName("");
+      newColorList("");
   
       // Verifique se a solicitação foi bem-sucedida antes de atualizar o estado
       if (response.status === 200) {
@@ -108,11 +110,7 @@ function MainBoard({ selectedBoard }) {
             }
           });
         });
-  
-        // Limpe o input e feche o popup
-        setNewListName("");
-        newColorList("");
-        setEditPopUp(false);
+
       } else {
         console.error("Erro ao editar lista");
       }

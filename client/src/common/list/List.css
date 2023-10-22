@@ -62,6 +62,7 @@
 }
 
 .FormPopUp{
+  font-family: montserrat;
   display: flex;
   flex-direction: column;
   gap: 16px;

@@ -52,7 +52,7 @@ function List({ idList, nameList, colorList,  deletList, handleEditList}) {
           <Input
             title="Nome da lista"
             type="text"
-            icon="fi fi-rr-list"
+            icon="fi fi-rr-id-card-clip-alt"
             value={newListName}
             onChange={(e) => setNewListName(e.target.value)}
           />
