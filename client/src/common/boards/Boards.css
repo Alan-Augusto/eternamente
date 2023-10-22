@@ -54,7 +54,7 @@
 }
 
 .NewBoard i:hover {
-  animation: scale 1s;
+  animation: scalequadros 1s;
 }
 
 .BoardItem{
@@ -80,12 +80,12 @@
   animation: scale 1s;
 }
 
-@keyframes scale {
+@keyframes scalequadros {
   0%,
   100% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.5);
   }
 }

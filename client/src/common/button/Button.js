@@ -6,7 +6,7 @@ function Button({ title, onClick, icon, color, colorText, shadow }) {
     background: color ? color : "#f20f99",
     color: colorText ? colorText : "#fffff",
     boxShadow: shadow ? shadow : ""
-  };
+  }; 
 
   return (
     <div className="Button" onClick={onClick} style={style} >

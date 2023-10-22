@@ -168,9 +168,55 @@ app.post("/newlist", (req, res) => {
   const { name, id } = req.body;
 
   // Inserindo um novo quadro na tabela "board"
-  const sqlInsertBoard =
-    "INSERT INTO list (name, board_id, color) VALUES (?, ?)";
+  const sqlInsertBoard = "INSERT INTO list (name, board_id) VALUES (?, ?)";
   db.query(sqlInsertBoard, [name, id], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.post("/detetlist", (req, res) => {
+  const { id } = req.body;
+
+  // Inserindo um novo quadro na tabela "board"
+  const sqlInsertBoard = "DELETE FROM list WHERE id = ?;";
+  db.query(sqlInsertBoard, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.post("/editlist", (req, res) => {
+  const { id, name, color } = req.body;
+
+  // Inserindo um novo quadro na tabela "board"
+  const sqlInsertBoard = "UPDATE `list` SET `name` = ?, `color` = ? WHERE `id` = ?";
+  db.query(sqlInsertBoard, [name, color, id], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.get("/getTasks", (req, res) => {
+  const id = req.query.id; // Obtém o valor do parâmetro de consulta 'id' da URL
+
+  const sqlSelect = "SELECT * FROM task WHERE list_id = ?";
+
+  console.log(sqlSelect);
+
+  db.query(sqlSelect, [id], (err, result) => {
     if (err) {
       console.log(err);
       return res.status(500).json(err);

@@ -46,7 +46,6 @@ function MainBoard({ selectedBoard }) {
     try {
       console.log("Inserindo nova Lista:", newListName);
 
-      // Envie a solicitação POST para criar a nova placa
       const response = await http.post("/newlist", {
         name: newListName,
         id: selectedBoard,
@@ -71,13 +70,67 @@ function MainBoard({ selectedBoard }) {
     }
   }
 
+  async function handleDeletList(id) {
+    try {
+      // Envie a solicitação POST para excluir a placa
+      await http.post("/detetlist", {
+        id: id,
+      });
+
+    // Atualize o estado removendo a placa excluída
+    setLists(lists.filter((lists) => lists.id !== id));
+    } catch (error) {
+      console.error("Erro ao excluir a placa:", error);
+    }
+  }
+
+  async function handleEditList(idList, newListName, newColorList, setEditPopUp) {
+    try {
+      console.log("Editando lista:", newListName);
+  
+      // Envie a solicitação POST para editar a lista
+      const response = await http.post("/editlist", {
+        name: newListName,
+        color: newColorList,
+        id: idList,
+      });
+      setEditPopUp(false);
+  
+      // Verifique se a solicitação foi bem-sucedida antes de atualizar o estado
+      if (response.status === 200) {
+        // Atualize o estado com a lista editada
+        setLists((prevLists) => {
+          return prevLists.map((list) => {
+            if (list.id === idList) {
+              return { ...list, name: newListName, color: newColorList };
+            } else {
+              return list;
+            }
+          });
+        });
+  
+        // Limpe o input e feche o popup
+        setNewListName("");
+        newColorList("");
+        setEditPopUp(false);
+      } else {
+        console.error("Erro ao editar lista");
+      }
+    } catch (error) {
+      console.error("Erro ao editar lista:", error);
+    }
+  }
+  
+
   return (
     <div className="MainBoard">
       {lists.map((list) => (
         <List 
           idList={list.id} 
           nameList={list.name} 
-          colorList={list.color} 
+          colorList={list.color}
+          deletList = {() => handleDeletList(list.id)}
+          handleEditList =  {handleEditList}
         />
       ))}
       {!showPopup && (
@@ -86,6 +139,7 @@ function MainBoard({ selectedBoard }) {
             title="nova lista"
             icon="fi fi-rr-plus-small"
             onClick={() => setShowPopup(true)}
+            color="#ffffff6a"
           />
         </div>
       )}

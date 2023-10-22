@@ -1,11 +1,75 @@
 .List {
+  width: 300px;
   display: flex;
-  width: 283px;
-  padding: 10px;
+  flex-direction: row;
+  align-items: start;
+  background-color: rgba(255, 255, 255, 0.75);
+  box-shadow: rgb(27, 28, 31) 0px 1px 2px 0px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.SideColor {
+  width: 10px;
+  height: 100%;
+}
+
+.TaskList {
+  display: flex;
   flex-direction: column;
+  align-items: startr;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+}
+
+.TitleList {
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 10px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.75);
-  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.25);
+  justify-content: center;
+  gap: 8px;
+  align-self: stretch;
+  font-family: montserrat;
+  font-size: 14px;
+}
+
+.TitleList h3 {
+  flex-grow: 1;
+}
+
+.TitleList i {
+  cursor: pointer;
+}
+
+.TitleList i:hover {
+  animation: scale 1s;
+}
+
+.backgroundPopUp{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  z-index: 1;
+}
+
+.FormPopUp{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  background-color: #ffffffcc;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
 }
