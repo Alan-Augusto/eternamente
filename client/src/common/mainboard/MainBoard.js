@@ -77,27 +77,29 @@ function MainBoard({ selectedBoard }) {
         id: id,
       });
 
-    // Atualize o estado removendo a placa excluída
-    setLists(lists.filter((lists) => lists.id !== id));
+      // Atualize o estado removendo a placa excluída
+      setLists(lists.filter((lists) => lists.id !== id));
     } catch (error) {
       console.error("Erro ao excluir a placa:", error);
     }
   }
 
-  async function handleEditList(idList, newListName, newColorList, setEditPopUp) {
+  async function handleEditList(
+    idList,
+    newListName,
+    newColorList,
+    setEditPopUp
+  ) {
     try {
       console.log("Editando lista:", newListName);
-  
+
       // Envie a solicitação POST para editar a lista
       const response = await http.post("/editlist", {
         name: newListName,
         color: newColorList,
         id: idList,
       });
-      setEditPopUp(false);
-      setNewListName("");
-      newColorList("");
-  
+
       // Verifique se a solicitação foi bem-sucedida antes de atualizar o estado
       if (response.status === 200) {
         // Atualize o estado com a lista editada
@@ -111,6 +113,9 @@ function MainBoard({ selectedBoard }) {
           });
         });
 
+        setEditPopUp(false);
+        setNewListName("");
+        newColorList("");
       } else {
         console.error("Erro ao editar lista");
       }
@@ -118,17 +123,16 @@ function MainBoard({ selectedBoard }) {
       console.error("Erro ao editar lista:", error);
     }
   }
-  
 
   return (
     <div className="MainBoard">
       {lists.map((list) => (
-        <List 
-          idList={list.id} 
-          nameList={list.name} 
+        <List
+          idList={list.id}
+          nameList={list.name}
           colorList={list.color}
-          deletList = {() => handleDeletList(list.id)}
-          handleEditList =  {handleEditList}
+          deletList={() => handleDeletList(list.id)}
+          handleEditList={handleEditList}
         />
       ))}
       {!showPopup && (
