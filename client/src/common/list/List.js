@@ -4,7 +4,6 @@ import http from "../../pages/export";
 import Task from "../task/Task";
 import Button from "../button/Button";
 import Input from "../input/Input";
-import Help from "../help/Help";
 
 function List({ idList, nameList, colorList, deletList, handleEditList }) {
   const [tasks, setTasks] = useState([]);
@@ -16,10 +15,7 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskDescription, setNewTaskDescription] = useState("");
   const [newTaskDate, setNewTaskDate] = useState("");
-  const [newTaskColor, setTaskColor] = useState("");
-  const [newTaskCompleted, setNewTaskCompleted] = useState(false);
-  const [newTaskHelp, setNewTasktHelp] = useState(false);
-  const [newTaskHelpText, setNewTaskHelpText] = useState("");
+  const [newTaskColor, setNewTaskColor] = useState("");
 
 
   async function handleCreateTask(
@@ -76,11 +72,12 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
             date={task.date}
             color={task.color}
             completed={task.completed}
-            help={task.help}
-            helptext={task.help}
           />
         ))}
-        <Button title="nova tarefa" onClick={() => setNewTaskPopUp(true)} />
+        <Button 
+          title="nova tarefa" 
+          onClick={() => setNewTaskPopUp(true)}
+        />
       </div>
       {editPopUp && (
         <div className="backgroundPopUp">
@@ -100,13 +97,20 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
               value={newColorList}
               onChange={(e) => setNewColorList(e.target.value)}
             />
-            <Button
-              onClick={() =>
-                handleEditList(idList, newListName, newColorList, setEditPopUp)
-              }
-              title="Aplicar"
-              icon="fi fi-rr-check"
-            />
+            <div className="PopUpButtons">
+              <Button
+                onClick={() => setEditPopUp(false)}
+                title="Cancelar"
+                icon="fi fi-rr-cross-small"
+              />
+              <Button
+                onClick={() =>
+                  handleEditList(idList, newListName, newColorList, setEditPopUp)
+                }
+                title="Aplicar"
+                icon="fi fi-rr-check"
+              />
+            </div>
           </div>
         </div>
       )}
@@ -126,28 +130,36 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
               title="Descrição"
               placeholder="Informações importantes..."
               type="text"
-              icon=""
+              icon="fi fi-rr-poll-h"
               value={newTaskDescription}
               onChange={(e)=>setNewTaskDescription(e.target.value)}
             />
             <Input
               title="Data"
               type="date"
-              icon=""
+              icon="fi fi-rr-calendar"
               value={newTaskDate}
               onChange={(e)=>setNewTaskDate(e.target.value)}
             />
             <Input 
               title="Cor da Tarefa" 
-                type="color" 
-                icon="fi fi-rr-palette"
+              type="color" 
+              icon="fi fi-rr-palette"
+              value={newTaskColor}
+              onChange={setNewTaskColor}
             />
-            <Help/>
-            <Button
-              onClick={() => setNewTaskPopUp(false)}
-              title="Aplicar"
-              icon="fi fi-rr-check"
-            />
+            <div className="PopUpButtons">
+              <Button
+                onClick={() => setNewTaskPopUp(false)}
+                title="Cancelar"
+                icon="fi fi-rr-cross-small"
+              />
+              <Button
+                onClick={() => setNewTaskPopUp(false)}
+                title="Aplicar"
+                icon="fi fi-rr-check"
+              />
+            </div>
 
           </div>
         </div>
