@@ -1,12 +1,21 @@
-.Body{
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    margin: 16px;
+.Body {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin: 16px;
 }
 
-.SideBar{
+.SideBar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  /* Mídia query para telas pequenas (por exemplo, até 768px de largura, geralmente dispositivos móveis) */
+  .Body {
     display: flex;
     flex-direction: column;
-    gap:16px;
+    align-items: center;
+  }
 }

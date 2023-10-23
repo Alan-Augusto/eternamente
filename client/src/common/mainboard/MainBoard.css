@@ -48,3 +48,12 @@
 .NewList i:hover {
   animation: scale 1s;
 }
+
+@media screen and (max-width: 768px) {
+  /* Mídia query para telas pequenas (por exemplo, até 768px de largura, geralmente dispositivos móveis) */
+  .MainBoard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

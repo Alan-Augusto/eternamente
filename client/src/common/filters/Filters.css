@@ -35,7 +35,7 @@
   font-size: 15px;
 }
 
-.Labels{
+.Labels {
   display: flex;
   flex-direction: row;
   padding: 8px;
@@ -49,12 +49,12 @@
   font-size: 15px;
 }
 
-.Filters select{
+.Filters select {
   flex: 1 0 0;
   align-self: stretch;
   border-radius: 8px;
   border: 1px solid #000;
-  background: rgba(251, 251, 251, 0.00);
+  background: rgba(251, 251, 251, 0);
   font-family: Montserrat;
   font-size: 12px;
   text-align: center;

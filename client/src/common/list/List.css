@@ -82,3 +82,10 @@
   align-items: center;
   gap: 8px;
 }
+
+@media screen and (max-width: 768px) {
+  /* Mídia query para telas pequenas (por exemplo, até 768px de largura, geralmente dispositivos móveis) */
+  .List{
+    width: 283px;
+  }
+}
