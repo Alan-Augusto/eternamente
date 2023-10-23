@@ -11,6 +11,8 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
   const [newColorList, setNewColorList] = useState(colorList);
   const [editPopUp, setEditPopUp] = useState(false);
 
+  const [creatingTask, setCreatingTask] = useState(false);
+
   const [newTaskPopUp, setNewTaskPopUp] = useState(false);
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskDescription, setNewTaskDescription] = useState("");
@@ -19,6 +21,7 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
 
   async function handleCreateTask() {
     try {
+      setCreatingTask(true);
       console.log(
         "Inserindo nova Tarefa:",
         newTaskTitle,
@@ -35,14 +38,30 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
         completed: false,
         idList: idList,
       });
-      
+
       // Após a criação da tarefa, atualize o estado tasks
       setTasks([...tasks, response.data]); // Adicione a nova tarefa ao estado tasks
 
+      setCreatingTask(false);
       // Feche o pop-up de nova tarefa
       setNewTaskPopUp(false);
     } catch (error) {
+      setCreatingTask(false);
       console.error("Erro ao criar o quadro:", error);
+    }
+  }
+
+  async function handleDeletTask(id) {
+    try {
+      // Envie a solicitação POST para excluir a placa
+      await http.post("/delettask", {
+        id: id,
+      });
+
+      // Atualize o estado removendo a placa excluída
+      setTasks(tasks.filter((Task) => Task.id !== id));
+    } catch (error) {
+      console.error("Erro ao excluir a placa:", error);
     }
   }
 
@@ -54,7 +73,7 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
     http.get(`/getTasks/?id=${idList}`).then((response) => {
       setTasks(response.data);
     });
-  }, [idList]);
+  }, [idList, creatingTask]);
 
   return (
     <div className="List">
@@ -68,11 +87,13 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
         </div>
         {tasks.map((task) => (
           <Task
+            id={task.id}
             title={task.title}
             description={task.description}
             date={task.date}
             color={task.color}
             completed={task.completed}
+            deletTask={() => handleDeletTask(task.id)}
           />
         ))}
         <Button title="nova tarefa" onClick={() => setNewTaskPopUp(true)} />

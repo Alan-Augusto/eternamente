@@ -179,7 +179,7 @@ app.post("/newlist", (req, res) => {
   });
 });
 
-app.post("/detetlist", (req, res) => {
+app.post("/deletlist", (req, res) => {
   const { id } = req.body;
 
   // Inserindo um novo quadro na tabela "board"
@@ -229,15 +229,6 @@ app.get("/getTasks", (req, res) => {
 
 app.post("/newtask", (req, res) => {
   const { title, description, date, color, completed, idList } = req.body;
-
-  /*    title: title,
-        description: description,
-        date: date,
-        color: color,
-        completed: completed,
-        idList: idList,
-*/
-  // Inserindo um novo quadro na tabela "board"
   const sqlInsertBoard =
     "INSERT INTO task (title, description, date, color, completed, help, list_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
   db.query(
@@ -252,6 +243,39 @@ app.post("/newtask", (req, res) => {
       res.send(result);
     }
   );
+});
+
+app.post("/checktask", (req, res) => {
+  const { id, check } = req.body;
+  let valuecheck = 0;
+  if (check) {
+    valuecheck = 1;
+  }
+  // Inserindo um novo quadro na tabela "board"
+  const sqlInsertBoard = "UPDATE `task` SET `completed` = ? WHERE `id` = ?";
+  db.query(sqlInsertBoard, [check, id], (err, result) => {
+    if (err) {
+      console.log("ERRRROOOO!!!!", err);
+      return res.status(500).json(err);
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.post("/delettask", (req, res) => {
+  const { id } = req.body;
+
+  // Inserindo um novo quadro na tabela "board"
+  const sqlInsertBoard = "DELETE FROM task WHERE id = ?;";
+  db.query(sqlInsertBoard, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    console.log(result);
+    res.send(result);
+  });
 });
 
 /*

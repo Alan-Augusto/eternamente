@@ -73,7 +73,7 @@ function MainBoard({ selectedBoard }) {
   async function handleDeletList(id) {
     try {
       // Envie a solicitação POST para excluir a placa
-      await http.post("/detetlist", {
+      await http.post("/deletlist", {
         id: id,
       });
 

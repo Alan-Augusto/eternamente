@@ -2,7 +2,35 @@
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    border: 1px solid yellow;
+    font-family: montserrat;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+}
+
+.Task i{
+    cursor: pointer;
+}
+
+.Task i:hover {
+    animation: scale 1s;
+}
+
+.TaskInfos{
+    align-self: stretch;
+    width: 100%;
+}
+
+.TaskInfos h3{
+    font-size: 15px;
+}
+
+.TaskInfos p{
+    font-size: 12px;
 }
