@@ -120,7 +120,7 @@ function List({ idList, nameList, colorList, deletList, handleEditList, filterCo
     http.get(`/getTasks/?id=${idList}`).then((response) => {
       setTasks(response.data);
     });
-  }, [idList, creatingTask, editing]);
+  }, [idList, creatingTask, editing, filterCheck, filterColor]);
 
   useEffect(() => {
     // Filtre as tarefas com base no filtro de cor e de conclusão

@@ -44,14 +44,14 @@ function Task({ id, title, description, date, color, completed, deletTask }) {
 
   return (
     <div className="TaskContainer">
-      <div className="Task" onClick={() => setEditTaskPopUp(true)}>
+      <div className="Task">
         <input
           type="checkbox"
           checked={checked}
           onChange={() => handleCheckTask()}
         />
 
-        <div className="TaskInfos">
+        <div className="TaskInfos" onClick={() => setEditTaskPopUp(true)}>
           <h3>{title}</h3>
           <p>{description}</p>
           <p>{formattedDate}</p>
