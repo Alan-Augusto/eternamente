@@ -121,9 +121,6 @@ function List({
     }
   }
 
-  const style = {
-    background: colorList,
-  };
 
   useEffect(() => {
     http.get(`/getTasks/?id=${idList}`).then((response) => {
@@ -146,7 +143,7 @@ function List({
 
   return (
     <div className="List">
-      <div className="SideColor" style={style} />
+      <div className="SideColor" style={{background: {colorList}}} />
 
       <div className="TaskList">
         <div className="TitleList">

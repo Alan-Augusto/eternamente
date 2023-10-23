@@ -16,12 +16,18 @@ function Signup() {
     console.log("email = ", email);
     console.log("senha = ", password);
     console.log("data = ", date);
-
+  
     http.post("/signup", {
       name: name,
       email: email,
       password: password,
       birthday: date,
+    }).then((response) => {
+      // Verifique se o cadastro foi bem-sucedido ou faça outras verificações necessárias.
+      // Se o cadastro for bem-sucedido, redirecione para a página inicial.
+      if (response.status === 200) {
+        window.location.href = "http://localhost:3000/";
+      }
     });
   }
 
@@ -66,6 +72,11 @@ function Signup() {
             onChange={(e) => setDate(e.target.value)}
           />
           <Button title="finalizar cadastro" onClick={handleClick} />
+          
+          <div className="GoToSignUp">
+            <p>Já possui cadastro?</p>
+            <a href="http://localhost:3000/">Clique Aqui</a>
+          </div>
         </div>
       </div>
     </div>

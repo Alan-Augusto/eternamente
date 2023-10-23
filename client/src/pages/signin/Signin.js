@@ -63,6 +63,10 @@ function Signin({ handleLoginSuccess }) {
             icon="fi fi-rr-sign-in-alt"
             onClick={handleClick}
           />
+          <div className="GoToSignUp">
+            <p>Nao possui cadastro?</p>
+            <a href="http://localhost:3000/signup">Clique Aqui</a>
+          </div>
         </div>
       </div>
     </div>
