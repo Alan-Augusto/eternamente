@@ -198,7 +198,8 @@ app.post("/editlist", (req, res) => {
   const { id, name, color } = req.body;
 
   // Inserindo um novo quadro na tabela "board"
-  const sqlInsertBoard = "UPDATE `list` SET `name` = ?, `color` = ? WHERE `id` = ?";
+  const sqlInsertBoard =
+    "UPDATE `list` SET `name` = ?, `color` = ? WHERE `id` = ?";
   db.query(sqlInsertBoard, [name, color, id], (err, result) => {
     if (err) {
       console.log(err);
@@ -224,6 +225,33 @@ app.get("/getTasks", (req, res) => {
     console.log(result);
     res.send(result);
   });
+});
+
+app.post("/newtask", (req, res) => {
+  const { title, description, date, color, completed, idList } = req.body;
+
+  /*    title: title,
+        description: description,
+        date: date,
+        color: color,
+        completed: completed,
+        idList: idList,
+*/
+  // Inserindo um novo quadro na tabela "board"
+  const sqlInsertBoard =
+    "INSERT INTO task (title, description, date, color, completed, help, list_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  db.query(
+    sqlInsertBoard,
+    [title, description, date, color, completed, false, idList],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json(err);
+      }
+      console.log(result);
+      res.send(result);
+    }
+  );
 });
 
 /*

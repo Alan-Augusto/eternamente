@@ -17,29 +17,30 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
   const [newTaskDate, setNewTaskDate] = useState("");
   const [newTaskColor, setNewTaskColor] = useState("");
 
-
-  async function handleCreateTask(
-    title,
-    description,
-    date,
-    color,
-    completed,
-    help,
-    helptext
-  ) {
+  async function handleCreateTask() {
     try {
-      console.log("Inserindo nova Tarefa:", newListName);
+      console.log(
+        "Inserindo nova Tarefa:",
+        newTaskTitle,
+        newTaskDescription,
+        newTaskDate,
+        newTaskColor
+      );
 
       const response = await http.post("/newtask", {
-        title: title,
-        description: description,
-        date: date,
-        color: color,
-        completed: completed,
-        help: help,
-        helptext: helptext,
+        title: newTaskTitle,
+        description: newTaskDescription,
+        date: newTaskDate,
+        color: newTaskColor,
+        completed: false,
         idList: idList,
       });
+      
+      // Após a criação da tarefa, atualize o estado tasks
+      setTasks([...tasks, response.data]); // Adicione a nova tarefa ao estado tasks
+
+      // Feche o pop-up de nova tarefa
+      setNewTaskPopUp(false);
     } catch (error) {
       console.error("Erro ao criar o quadro:", error);
     }
@@ -74,10 +75,7 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
             completed={task.completed}
           />
         ))}
-        <Button 
-          title="nova tarefa" 
-          onClick={() => setNewTaskPopUp(true)}
-        />
+        <Button title="nova tarefa" onClick={() => setNewTaskPopUp(true)} />
       </div>
       {editPopUp && (
         <div className="backgroundPopUp">
@@ -105,7 +103,12 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
               />
               <Button
                 onClick={() =>
-                  handleEditList(idList, newListName, newColorList, setEditPopUp)
+                  handleEditList(
+                    idList,
+                    newListName,
+                    newColorList,
+                    setEditPopUp
+                  )
                 }
                 title="Aplicar"
                 icon="fi fi-rr-check"
@@ -124,7 +127,7 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
               type="text"
               icon="fi fi-rr-id-card-clip-alt"
               value={newTaskTitle}
-              onChange={(e)=>setNewTaskTitle(e.target.value)}
+              onChange={(e) => setNewTaskTitle(e.target.value)}
             />
             <Input
               title="Descrição"
@@ -132,21 +135,21 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
               type="text"
               icon="fi fi-rr-poll-h"
               value={newTaskDescription}
-              onChange={(e)=>setNewTaskDescription(e.target.value)}
+              onChange={(e) => setNewTaskDescription(e.target.value)}
             />
             <Input
               title="Data"
               type="date"
               icon="fi fi-rr-calendar"
               value={newTaskDate}
-              onChange={(e)=>setNewTaskDate(e.target.value)}
+              onChange={(e) => setNewTaskDate(e.target.value)}
             />
-            <Input 
-              title="Cor da Tarefa" 
-              type="color" 
+            <Input
+              title="Cor da Tarefa"
+              type="color"
               icon="fi fi-rr-palette"
               value={newTaskColor}
-              onChange={setNewTaskColor}
+              onChange={(e) => setNewTaskColor(e.target.value)}
             />
             <div className="PopUpButtons">
               <Button
@@ -155,12 +158,11 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
                 icon="fi fi-rr-cross-small"
               />
               <Button
-                onClick={() => setNewTaskPopUp(false)}
+                onClick={() => handleCreateTask()}
                 title="Aplicar"
                 icon="fi fi-rr-check"
               />
             </div>
-
           </div>
         </div>
       )}
