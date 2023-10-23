@@ -278,6 +278,26 @@ app.post("/delettask", (req, res) => {
   });
 });
 
+app.post("/edittask", (req, res) => {
+  const { title, description, date, color, completed, idList } = req.body;
+
+  // Inserindo um novo quadro na tabela "board"
+  const sqlInsertBoard =
+    "UPDATE `task` SET `title` = ?, `description` = ?, `date` = ?, `color` = ?, `completed` = ? WHERE `id` = ?";
+  db.query(
+    sqlInsertBoard,
+    [title, description, date, color, completed, idList],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json(err);
+      }
+      console.log(result);
+      res.send(result);
+    }
+  );
+});
+
 /*
 
 (----OBTENDO AS LISTAS DE UMA BOARD----)

@@ -5,15 +5,23 @@ import Input from "../input/Input";
 import Button from "../button/Button";
 import http from "../../pages/export";
 
-function Task({ id, title, description, date, color, completed, deletTask }) {
+function Task({
+  id,
+  title,
+  description,
+  date,
+  color,
+  completed,
+  deletTask,
+  editTask,
+}) {
   const formattedDate = date
-  ? new Date(date).toLocaleDateString("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    })
-  : "";
-
+    ? new Date(date).toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+    : "";
 
   const [checked, setChecked] = useState(completed);
   const [editTaskPopUp, setEditTaskPopUp] = useState(false);
@@ -57,7 +65,7 @@ function Task({ id, title, description, date, color, completed, deletTask }) {
           <p>{formattedDate}</p>
         </div>
 
-        <i class="fi fi-rr-trash" onClick={deletTask}></i>
+        <i class="fi fi-rr-trash" onClick={() => deletTask()}></i>
       </div>
       <div className="TaskColor" style={style} />
       {editTaskPopUp && (
@@ -101,7 +109,17 @@ function Task({ id, title, description, date, color, completed, deletTask }) {
                 icon="fi fi-rr-cross-small"
               />
               <Button
-                onClick={() => console.log("")}
+                onClick={(e) =>
+                  editTask(
+                    id,
+                    newTaskTitle,
+                    newTaskDescription,
+                    newTaskDate,
+                    newTaskColor,
+                    completed,
+                    setEditTaskPopUp
+                  )
+                }
                 title="Aplicar"
                 icon="fi fi-rr-check"
               />

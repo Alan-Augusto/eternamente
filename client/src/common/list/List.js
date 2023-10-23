@@ -5,7 +5,15 @@ import Task from "../task/Task";
 import Button from "../button/Button";
 import Input from "../input/Input";
 
-function List({ idList, nameList, colorList, deletList, handleEditList, filterColor, filterCheck }) {
+function List({
+  idList,
+  nameList,
+  colorList,
+  deletList,
+  handleEditList,
+  filterColor,
+  filterCheck,
+}) {
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
 
@@ -47,13 +55,12 @@ function List({ idList, nameList, colorList, deletList, handleEditList, filterCo
 
       setCreatingTask(false);
       // Feche o pop-up de nova tarefa
-      
+
       setNewTaskPopUp(false);
       setNewTaskTitle("");
       setNewTaskDescription("");
       setNewTaskDate("");
       setNewTaskColor("");
-      
     } catch (error) {
       setCreatingTask(false);
       console.error("Erro ao criar o quadro:", error);
@@ -74,46 +81,48 @@ function List({ idList, nameList, colorList, deletList, handleEditList, filterCo
     }
   }
 
-  async function handleEditTask(id, completed) {
+  async function handleEditTask(
+    id,
+    title,
+    description,
+    date,
+    color,
+    completed,
+    popUp
+  ) {
     try {
       setEditingTask(true);
-      console.log(
-        "EditandoTarefa:",
-        newTaskTitle,
-        newTaskDescription,
-        newTaskDate,
-        newTaskColor
-      );
+      console.log("EditandoTarefa:", title, description, date, color);
 
       const response = await http.post("/edittask", {
-        title: newTaskTitle,
-        description: newTaskDescription,
-        date: newTaskDate,
-        color: newTaskColor,
+        title: title,
+        description: description,
+        date: date,
+        color: color,
         completed: completed,
         idList: id,
       });
 
+      popUp(false);
       // Após a criação da tarefa, atualize o estado tasks
       setTasks([...tasks, response.data]); // Adicione a nova tarefa ao estado tasks
 
       setEditingTask(false);
       // Feche o pop-up de nova tarefa
-      
-      setNewTaskPopUp(false);
+
+      popUp(false);
       setNewTaskTitle("");
       setNewTaskDescription("");
       setNewTaskDate("");
       setNewTaskColor("");
-      
     } catch (error) {
       setEditingTask(false);
-      console.error("Erro ao criar o quadro:", error);
+      console.error("Erro ao editar tarefa:", error);
     }
   }
 
   const style = {
-    background: colorList !== null ? colorList : "",
+    background: colorList,
   };
 
   useEffect(() => {
@@ -126,7 +135,10 @@ function List({ idList, nameList, colorList, deletList, handleEditList, filterCo
     // Filtre as tarefas com base no filtro de cor e de conclusão
     const filtered = tasks.filter((task) => {
       const colorMatch = filterColor === "todas" || task.color === filterColor;
-      const checkMatch = filterCheck === "qualquer" || (filterCheck === "completas" && task.completed) || (filterCheck === "incompletas" && !task.completed);
+      const checkMatch =
+        filterCheck === "qualquer" ||
+        (filterCheck === "completas" && task.completed) ||
+        (filterCheck === "incompletas" && !task.completed);
       return colorMatch && checkMatch;
     });
     setFilteredTasks(filtered);
@@ -134,7 +146,7 @@ function List({ idList, nameList, colorList, deletList, handleEditList, filterCo
 
   return (
     <div className="List">
-      {colorList && <div className="SideColor" style={style}></div>}
+      <div className="SideColor" style={style} />
 
       <div className="TaskList">
         <div className="TitleList">
@@ -151,11 +163,12 @@ function List({ idList, nameList, colorList, deletList, handleEditList, filterCo
             color={task.color}
             completed={task.completed}
             deletTask={() => handleDeletTask(task.id)}
+            editTask={handleEditTask}
             key={task.id} // Adicione uma chave única para cada tarefa
           />
         ))}
-        <Button 
-          title="nova tarefa" 
+        <Button
+          title="nova tarefa"
           onClick={() => setNewTaskPopUp(true)}
           color="rgba(80, 80, 100, 0.25) "
           icon="fi fi-rr-plus-small"
