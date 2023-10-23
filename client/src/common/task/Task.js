@@ -1,15 +1,26 @@
 import "./Task.css";
 import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
+import Input from "../input/Input";
+import Button from "../button/Button";
 import http from "../../pages/export";
 
-function Task({id, title, description, date, color, completed, deletTask}) {
+function Task({ id, title, description, date, color, completed, deletTask }) {
+  const formattedDate = date
+  ? new Date(date).toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    })
+  : "";
 
-  const formattedDate = date instanceof Date && !isNaN(date)
-    ? date.toLocaleDateString()
-    : '';
 
   const [checked, setChecked] = useState(completed);
+  const [editTaskPopUp, setEditTaskPopUp] = useState(false);
+  const [newTaskTitle, setNewTaskTitle] = useState(title);
+  const [newTaskDescription, setNewTaskDescription] = useState(description);
+  const [newTaskDate, setNewTaskDate] = useState(date);
+  const [newTaskColor, setNewTaskColor] = useState(color);
 
   const style = {
     background: color !== null ? color : "",
@@ -31,13 +42,9 @@ function Task({id, title, description, date, color, completed, deletTask}) {
     }
   }
 
-  useEffect(() => {
-    console.log(checked);
-  }, [checked]);
-
   return (
     <div className="TaskContainer">
-      <div className="Task">
+      <div className="Task" onClick={() => setEditTaskPopUp(true)}>
         <input
           type="checkbox"
           checked={checked}
@@ -52,7 +59,56 @@ function Task({id, title, description, date, color, completed, deletTask}) {
 
         <i class="fi fi-rr-trash" onClick={deletTask}></i>
       </div>
-      <div className="TaskColor" style={style}/>
+      <div className="TaskColor" style={style} />
+      {editTaskPopUp && (
+        <div className="backgroundPopUp">
+          <div className="FormPopUp">
+            <h3>Editar tarefa:</h3>
+            <Input
+              title="Título"
+              placeholder="Digite o título..."
+              type="text"
+              icon="fi fi-rr-id-card-clip-alt"
+              value={newTaskTitle}
+              onChange={(e) => setNewTaskTitle(e.target.value)}
+            />
+            <Input
+              title="Descrição"
+              placeholder="Informações importantes..."
+              type="text"
+              icon="fi fi-rr-poll-h"
+              value={newTaskDescription}
+              onChange={(e) => setNewTaskDescription(e.target.value)}
+            />
+            <Input
+              title="Data"
+              type="date"
+              icon="fi fi-rr-calendar"
+              value={newTaskDate}
+              onChange={(e) => setNewTaskDate(e.target.value)}
+            />
+            <Input
+              title="Cor da Tarefa"
+              type="color"
+              icon="fi fi-rr-palette"
+              value={newTaskColor}
+              onChange={(e) => setNewTaskColor(e.target.value)}
+            />
+            <div className="PopUpButtons">
+              <Button
+                onClick={() => setEditTaskPopUp(false)}
+                title="Cancelar"
+                icon="fi fi-rr-cross-small"
+              />
+              <Button
+                onClick={() => console.log("")}
+                title="Aplicar"
+                icon="fi fi-rr-check"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

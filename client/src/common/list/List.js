@@ -12,6 +12,7 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
   const [editPopUp, setEditPopUp] = useState(false);
 
   const [creatingTask, setCreatingTask] = useState(false);
+  const [editing, setEditingTask] = useState(false);
 
   const [newTaskPopUp, setNewTaskPopUp] = useState(false);
   const [newTaskTitle, setNewTaskTitle] = useState("");
@@ -71,6 +72,44 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
     }
   }
 
+  async function handleEditTask(id, completed) {
+    try {
+      setEditingTask(true);
+      console.log(
+        "EditandoTarefa:",
+        newTaskTitle,
+        newTaskDescription,
+        newTaskDate,
+        newTaskColor
+      );
+
+      const response = await http.post("/edittask", {
+        title: newTaskTitle,
+        description: newTaskDescription,
+        date: newTaskDate,
+        color: newTaskColor,
+        completed: completed,
+        idList: id,
+      });
+
+      // Após a criação da tarefa, atualize o estado tasks
+      setTasks([...tasks, response.data]); // Adicione a nova tarefa ao estado tasks
+
+      setEditingTask(false);
+      // Feche o pop-up de nova tarefa
+      
+      setNewTaskPopUp(false);
+      setNewTaskTitle("");
+      setNewTaskDescription("");
+      setNewTaskDate("");
+      setNewTaskColor("");
+      
+    } catch (error) {
+      setEditingTask(false);
+      console.error("Erro ao criar o quadro:", error);
+    }
+  }
+
   const style = {
     background: colorList !== null ? colorList : "",
   };
@@ -79,7 +118,7 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
     http.get(`/getTasks/?id=${idList}`).then((response) => {
       setTasks(response.data);
     });
-  }, [idList, creatingTask]);
+  }, [idList, creatingTask, editing]);
 
   return (
     <div className="List">

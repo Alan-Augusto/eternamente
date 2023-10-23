@@ -1,49 +1,65 @@
-.TaskContainer{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-    overflow: hidden;
+.TaskContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.Task{
-    
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-family: montserrat;
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    gap: 8px;
-    
+.Task {
+  cursor: pointer;
 }
 
-.Task i{
-    cursor: pointer;
+.Task :hover {
+  animation: move 0.5s;
+}
+
+.Task {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: montserrat;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  gap: 8px;
+}
+
+.Task i {
+  cursor: pointer;
 }
 
 .Task i:hover {
-    animation: scale 1s;
+  animation: scale 1s;
 }
 
-.TaskInfos{
-    align-self: stretch;
-    width: 100%;
+.TaskInfos {
+  align-self: stretch;
+  width: 100%;
 }
 
-.TaskInfos h3{
-    font-size: 15px;
+.TaskInfos h3 {
+  font-size: 15px;
 }
 
-.TaskInfos p{
-    font-size: 12px;
+.TaskInfos p {
+  font-size: 12px;
 }
 
-.TaskColor{
-    height: 4px;
-    width: 100%;
+.TaskColor {
+  height: 4px;
+  width: 100%;
 }
+
+@keyframes move {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.01);
+    }
+  }
