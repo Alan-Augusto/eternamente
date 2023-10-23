@@ -4,15 +4,21 @@ import "./Home.css";
 import Boards from "../../common/boards/Boards";
 import Filters from "../../common/filters/Filters";
 import MainBoard from "../../common/mainboard/MainBoard";
+import Header from "../../common/header/Header";
 
 function Home({ idUser }) {
+  const [nameBoard, setNameBoard] = useState("");
   const [selectedBoard, setSelectedBoard] = useState("");
   const [filterColor, setFilterColor] = useState("todas");
   const [filterCheck, setFilterCheck] = useState("qualquer");
 
   return (
     <div className="Home">
-      <div className="Header"></div>
+      <div className="Header">
+        <Header
+          selectedBoard={nameBoard}
+        />
+      </div>
       <div className="Body">
         <div className="SideBar">
           <Filters
@@ -24,6 +30,7 @@ function Home({ idUser }) {
             selectedBoard={selectedBoard}
             setSelectedBoard={setSelectedBoard}
             idUser={idUser}
+            setNameBoard={setNameBoard}
           />
         </div>
         <div className="Main">

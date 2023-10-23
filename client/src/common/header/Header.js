@@ -1,9 +1,12 @@
 import './Header.css';
 
-function Header() {
+function Header({selectedBoard}) {
   return (
     <div className="Header">
-      <p>Header</p>
+      <img src="./assets/LogoBlack.png" alt="logomarca" />
+      <div className="HeaderTitle">
+        <p>{selectedBoard}</p>
+      </div>
     </div>
   );
 }

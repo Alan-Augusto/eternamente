@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Button from "../button/Button";
 import http from "../../pages/export";
 
-function Boards({ selectedBoard, setSelectedBoard, idUser }) {
+function Boards({ selectedBoard, setSelectedBoard, idUser, setNameBoard }) {
   const [showPopup, setShowPopup] = useState(false);
   const [newBoardName, setNewBoardName] = useState("");
   const [boards, setBoards] = useState([]);
@@ -30,6 +30,7 @@ function Boards({ selectedBoard, setSelectedBoard, idUser }) {
 
       if (response.data.length > 0) {
         setSelectedBoard(response.data[0].id);
+        setNameBoard(response.data[0].title);
       }
     });
   }, [idUser, showPopup]);
