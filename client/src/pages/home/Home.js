@@ -7,9 +7,8 @@ import MainBoard from "../../common/mainboard/MainBoard";
 
 function Home({ idUser }) {
   const [selectedBoard, setSelectedBoard] = useState("");
-  const [filterColor, setFilterColor] = useState("");
+  const [filterColor, setFilterColor] = useState("todas");
   const [filterCheck, setFilterCheck] = useState("qualquer");
-
 
   return (
     <div className="Home">
