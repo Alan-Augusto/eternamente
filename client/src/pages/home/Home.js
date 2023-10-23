@@ -7,7 +7,6 @@ import MainBoard from "../../common/mainboard/MainBoard";
 import Header from "../../common/header/Header";
 
 function Home({ idUser }) {
-  const [nameBoard, setNameBoard] = useState("");
   const [selectedBoard, setSelectedBoard] = useState("");
   const [filterColor, setFilterColor] = useState("todas");
   const [filterCheck, setFilterCheck] = useState("qualquer");
@@ -15,9 +14,7 @@ function Home({ idUser }) {
   return (
     <div className="Home">
       <div className="Header">
-        <Header
-          selectedBoard={nameBoard}
-        />
+        <Header id={idUser} />
       </div>
       <div className="Body">
         <div className="SideBar">
@@ -30,7 +27,6 @@ function Home({ idUser }) {
             selectedBoard={selectedBoard}
             setSelectedBoard={setSelectedBoard}
             idUser={idUser}
-            setNameBoard={setNameBoard}
           />
         </div>
         <div className="Main">

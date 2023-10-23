@@ -298,28 +298,22 @@ app.post("/edittask", (req, res) => {
   );
 });
 
-/*
+app.get("/getuser", (req, res) => {
+  const id = req.query.id; // Obtém o valor do parâmetro de consulta 'id' da URL
 
-(----OBTENDO AS LISTAS DE UMA BOARD----)
-SELECT l.*, t.*
-FROM list AS l
-LEFT JOIN task AS t ON l.id = t.list_id
-WHERE l.board_id = YOUR_BOARD_ID;
+  const sqlSelect = "SELECT name FROM usuario WHERE id = ?";
 
-(----CRIANDO UMA NOVA BOARD E ASSOCIA AO USUÁRIO----)
-INSERT INTO board (title) VALUES ('Your New Board Title');
+  console.log(sqlSelect);
 
-INSERT INTO usuario-board (usuario_id, board_id) VALUES (YOUR_USER_ID, LAST_INSERT_ID());
-
-(----CRIANDO UMA NOVA LISTA E ASSOCIA À BOARD SELECIONADA----)
-INSERT INTO list (name, color, board_id) VALUES ('Your List Name', 'List Color', YOUR_BOARD_ID);
-
-(----CRIANDO UMA NOVA TAREFA E ASSOCIA À LISTA SELECIONADA----)
-INSERT INTO task (title, description, date, color, completed, help, helptext, list_id) 
-VALUES ('Task Title', 'Task Description', 'Task Date', 'Task Color', 0, 0, 'Task Help Text', YOUR_LIST_ID);
-
-
-*/
+  db.query(sqlSelect, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
 
 app.listen(3001, () => {
   console.log(`Servidor rodando na porta 3001`);
