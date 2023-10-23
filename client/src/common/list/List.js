@@ -44,7 +44,13 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
 
       setCreatingTask(false);
       // Feche o pop-up de nova tarefa
+      
       setNewTaskPopUp(false);
+      setNewTaskTitle("");
+      setNewTaskDescription("");
+      setNewTaskDate("");
+      setNewTaskColor("");
+      
     } catch (error) {
       setCreatingTask(false);
       console.error("Erro ao criar o quadro:", error);
@@ -96,7 +102,12 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
             deletTask={() => handleDeletTask(task.id)}
           />
         ))}
-        <Button title="nova tarefa" onClick={() => setNewTaskPopUp(true)} />
+        <Button 
+          title="nova tarefa" 
+          onClick={() => setNewTaskPopUp(true)}
+          color="rgba(80, 80, 100, 0.25) "
+          icon="fi fi-rr-plus-small"
+        />
       </div>
       {editPopUp && (
         <div className="backgroundPopUp">

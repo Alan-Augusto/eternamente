@@ -11,6 +11,10 @@ function Task({id, title, description, date, color, completed, deletTask}) {
 
   const [checked, setChecked] = useState(completed);
 
+  const style = {
+    background: color !== null ? color : "",
+  };
+
   async function handleCheckTask() {
     try {
       console.log("Checkando task:", title);
@@ -32,20 +36,23 @@ function Task({id, title, description, date, color, completed, deletTask}) {
   }, [checked]);
 
   return (
-    <div className="Task">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={() => handleCheckTask()}
-      />
+    <div className="TaskContainer">
+      <div className="Task">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={() => handleCheckTask()}
+        />
 
-      <div className="TaskInfos">
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <p>{formattedDate}</p>
+        <div className="TaskInfos">
+          <h3>{title}</h3>
+          <p>{description}</p>
+          <p>{formattedDate}</p>
+        </div>
+
+        <i class="fi fi-rr-trash" onClick={deletTask}></i>
       </div>
-
-      <i class="fi fi-rr-trash" onClick={deletTask}></i>
+      <div className="TaskColor" style={style}/>
     </div>
   );
 }
