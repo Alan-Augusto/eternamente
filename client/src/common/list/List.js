@@ -5,8 +5,10 @@ import Task from "../task/Task";
 import Button from "../button/Button";
 import Input from "../input/Input";
 
-function List({ idList, nameList, colorList, deletList, handleEditList }) {
+function List({ idList, nameList, colorList, deletList, handleEditList, filterColor, filterCheck }) {
   const [tasks, setTasks] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState([]);
+
   const [newListName, setNewListName] = useState(nameList);
   const [newColorList, setNewColorList] = useState(colorList);
   const [editPopUp, setEditPopUp] = useState(false);
@@ -120,6 +122,16 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
     });
   }, [idList, creatingTask, editing]);
 
+  useEffect(() => {
+    // Filtre as tarefas com base no filtro de cor e de conclusão
+    const filtered = tasks.filter((task) => {
+      const colorMatch = filterColor === "todas" || task.color === filterColor;
+      const checkMatch = filterCheck === "qualquer" || (filterCheck === "completas" && task.completed) || (filterCheck === "incompletas" && !task.completed);
+      return colorMatch && checkMatch;
+    });
+    setFilteredTasks(filtered);
+  }, [filterColor, filterCheck, tasks]);
+
   return (
     <div className="List">
       {colorList && <div className="SideColor" style={style}></div>}
@@ -130,7 +142,7 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
           <i class="fi fi-rr-pencil" onClick={() => setEditPopUp(true)}></i>
           <i class="fi fi-rr-cross-small" onClick={deletList}></i>
         </div>
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <Task
             id={task.id}
             title={task.title}
@@ -139,6 +151,7 @@ function List({ idList, nameList, colorList, deletList, handleEditList }) {
             color={task.color}
             completed={task.completed}
             deletTask={() => handleDeletTask(task.id)}
+            key={task.id} // Adicione uma chave única para cada tarefa
           />
         ))}
         <Button 

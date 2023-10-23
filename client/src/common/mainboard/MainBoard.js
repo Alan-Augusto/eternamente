@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Button from "../button/Button";
 import List from "../list/List";
 
-function MainBoard({ selectedBoard }) {
+function MainBoard({ selectedBoard, filterColor, filterCheck }) {
   const [lists, setLists] = useState([]);
   const [newListName, setNewListName] = useState("");
   const [showPopup, setShowPopup] = useState(false);
@@ -133,6 +133,9 @@ function MainBoard({ selectedBoard }) {
           colorList={list.color}
           deletList={() => handleDeletList(list.id)}
           handleEditList={handleEditList}
+          filterColor={filterColor}
+          filterCheck={filterCheck}
+
         />
       ))}
       {!showPopup && (

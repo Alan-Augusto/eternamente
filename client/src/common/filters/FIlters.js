@@ -1,22 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import Button from "../button/Button";
 import "./Filters.css";
 
-function Filters({idUser}) {
+function Filters({ setFilterColor, setFilterCheck }) {
+  const [selectedColor, setSelectedColor] = useState("todas");
+  const [selectedLabel, setSelectedLabel] = useState("qualquer");
 
-  const [colors, setcolors] = useState(['#ffffff', "#000000"]);
-  const [labels, setlabels] = useState(['Importantes', 'Urgentes', 'segundo plano']);
+  const colors = ['#ffffff', "#000000"];
+
+  function handleColorChange(event) {
+    setSelectedColor(event.target.value);
+  }
+
+  function handleLabelChange(event) {
+    setSelectedLabel(event.target.value);
+  }
+
+  function handleFilterApply() {
+    setFilterColor(selectedColor);
+    setFilterCheck(selectedLabel);
+  }
 
   return (
     <div className="Filters">
       <h3>Filtros</h3>
 
       <div className="Colors">
-        
-      <i class="fi fi-rr-palette"></i>
+        <i className="fi fi-rr-palette"></i>
         <p>a cor é:</p>
 
-        <select>
-          <option>todas as cores</option>
+        <select onChange={handleColorChange}>
+          <option value="todas">todas</option>
           {colors.map((color, index) => (
             <option key={index} value={color}>
               {color}
@@ -26,18 +40,21 @@ function Filters({idUser}) {
       </div>
 
       <div className="Labels">
-        <i class="fi fi-rr-label"></i>
-        <p>o rótulo é:</p>
+        <i className="fi fi-rr-label"></i>
+        <p>situação:</p>
 
-        <select>
-          <option>todos os rótulos</option>
-          {labels.map((label, index) => (
-            <option key={index} value={label}>
-              {label}
-            </option>
-          ))}
+        <select onChange={handleLabelChange}>
+          <option value="qualquer">qualquer</option>
+          <option value="completas">completas</option>
+          <option value="incompletas">incompleta</option>
         </select>
       </div>
+
+      <Button
+        title="Aplicar filtro"
+        icon="fi fi-rr-filter"
+        onClick={()=>handleFilterApply()}
+      />
     </div>
   );
 }

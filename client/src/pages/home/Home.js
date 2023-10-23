@@ -7,6 +7,9 @@ import MainBoard from "../../common/mainboard/MainBoard";
 
 function Home({ idUser }) {
   const [selectedBoard, setSelectedBoard] = useState("");
+  const [filterColor, setFilterColor] = useState("");
+  const [filterCheck, setFilterCheck] = useState("qualquer");
+
 
   return (
     <div className="Home">
@@ -15,6 +18,8 @@ function Home({ idUser }) {
         <div className="SideBar">
           <Filters
             idUser={idUser}
+            setFilterColor={setFilterColor}
+            setFilterCheck={setFilterCheck}
           />
           <Boards
             selectedBoard={selectedBoard}
@@ -26,6 +31,8 @@ function Home({ idUser }) {
           {/* CONJUNTO DE LISTAS*/}
           <MainBoard
             selectedBoard={selectedBoard}
+            filterColor={filterColor}
+            filterCheck={filterCheck}
           />
         </div>
       </div>
